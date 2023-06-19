@@ -1,4 +1,3 @@
-from .console import menu, show_contacts, print_message, input_contact, input_return
-from .text import *
+from .console import menu, show_contacts, print_message, input_contact, input_return, input_selection_contact
 
-__all__ = ['menu', 'show_contacts', 'input_contact', 'input_return']
+__all__ = ['menu', 'show_contacts', 'input_contact', 'input_return', 'input_selection_contact']

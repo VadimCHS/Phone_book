@@ -34,10 +34,19 @@ def show_contacts(book: list[dict[str, str]]):
 def input_contact(message: str) -> dict[str, str]:
     print(message)
     name = input(new_contact[0])
-    phone = input(new_contact[0])
-    comment = input(new_contact[0])
+    phone = input(new_contact[1])
+    comment = input(new_contact[2])
     return {'name': name, 'phone': phone, 'comment': comment}
 
 
 def input_return(message: str) -> str:
     return input(message)
+
+def input_selection_contact(message: str, numbers_contackt: int) -> int:
+    while True:
+        id_contact = int(input(message))
+        if 0 < id_contact <= numbers_contackt:
+            return id_contact
+        print(selection_error)
+        
+    

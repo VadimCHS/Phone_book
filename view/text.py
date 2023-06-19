@@ -23,7 +23,13 @@ input_index = 'Введите индекс изменяемого контакт
 input_change_contact = 'Введите данные изменяемого контакта или Enter? чтоб оставить без изменений: '
 
 def contact_saved(name: str):
-    return f'Контакт {name} успешно сохранен'
+    return f'Контакт {name} успешно создан'
 
 def contact_changed(name: str):
     return f'Контакт {name} успешно изменен'
+
+
+book_save = 'Телефонная книга сохранена'
+selection_contact = 'Выберите номер контакта: '
+selection_error = 'Неккоректный ввод.'
+delete_contact = 'Контакт удален.'
