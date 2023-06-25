@@ -1,58 +1,57 @@
-phone_book = []
-path = 'PB_console\phones.txt'
+class PhoneBook:
+   
+    def __init__(self, path: str) -> None:
+        self.phone_book = []
+        self.path = path
+        self.open_phone_book()
 
+    # Открытие файла
+    def open_phone_book(self) -> None:
+        with open(self.path, 'r', encoding = 'UTF=8') as file:
+            data = file.readlines()
+        for contact in data:
+            user_id, name, phone, comment, *_ = contact.strip().split(':')
+            self.phone_book.append({'id': user_id, 'name': name, 'phone': phone, 'comment': comment})
+   
+    # Сохранение файла
+    def save_phone_book(self) -> None:
+        with open(self.path, 'w', encoding = 'UTF=8') as file:
+            for contact in range(len(self.phone_book)):
+                line = self.phone_book[contact]
+                uid = str(line.get('id'))
+                name = str(line.get('name'))
+                phone = str(line.get('phone'))
+                comment = str(line.get('comment'))
+                file.write(f'{uid}:{name}:{phone}:{comment}' + '\n')
 
-def open_file():
-    with open(path, 'r', encoding='UTF-8') as file:
-        data = file.readlines()
-    for contact in data:
-        user_id, name, phone, comment, *_ = contact.strip().split(':')
-        phone_book.append({'id': user_id, 'name': name, 'phone': phone, 'comment': comment})
-
-
-def check_id():
-    uid_list = []
-    for contact in phone_book:
-        uid_list.append(int(contact.get('id')))
-    return {'id': max(uid_list) + 1}
-
-
-def add_contact(new: dict):
-    new.update(check_id())
-    phone_book.append(new)
-
-
-def search(word: str) -> list[dict]:
-    result = []
-    for contact in phone_book:
-        for key, value in contact.items():
-            if word.lower() in str(value).lower():
-                result.append(contact)
+    # Добавление контакта
+    def add_contact(self, contact: dict) -> None:
+        self.phone_book.append(contact)
+    
+    # Удаление контакта
+    def delet_contact(self, id_contact: int) -> None:
+        for index_contact in range(len(self.phone_book)):
+            if self.phone_book[index_contact].get('id') == str(id_contact):
+                self.phone_book.pop(index_contact)
                 break
-    return result
-
-
-def change(index: int, new: dict[str, str]):
-    for key, field in new.items():
-        if field != '':
-            phone_book[index - 1][key] = field
-
-def save_contact(book: list[dict[str, str]]):
-    new_book = []
-    for  contact in range(len(book)):
-        line = book[contact]
-        uid = str(line.get('id'))
-        name = str(line.get('name'))
-        phone = str(line.get('phone'))
-        comment = str(line.get('comment'))
-        new_book.append(uid + ':' + name + ':' + phone + ':' + comment)                
-    with open(path, 'w', encoding='UTF-8') as file:
-        for contact in new_book:
-            file.write(str(contact) + '\n')
-
-def delet_contact(book: list[dict[str, str]], id_contact: int):
-    del book[id_contact - 1]
-    while id_contact <= len(book):
-        book[id_contact - 1]['id'] = id_contact
-        id_contact += 1 
-            
+    
+    # Изменение контакта
+    def change_contact(self, id_contact: int, new_data: dict) -> None:
+        for index_contact in range(len(self.phone_book)):
+            if self.phone_book[index_contact].get('id') == str(id_contact):
+                self.phone_book[index_contact].update(new_data)
+                break
+    
+    # Поисск контакта
+    def search_contact(self, word: str) -> list[dict]:
+        result = []
+        for contact in self.phone_book:
+            for value in contact.values():
+                if word.lower() in value.lower():
+                    result.append(contact)
+                    break
+        return result
+    
+class Contact:
+    def __init__(self, name: str, phone: str, comment: str, id: int) -> None:
+        self.contact = {'id':str(id), 'name':name, 'phone':phone, 'comment':comment} 

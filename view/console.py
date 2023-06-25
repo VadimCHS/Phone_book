@@ -17,9 +17,11 @@ def print_message(message: str):
     print('=' * length + '\n')
 
 
-def show_contacts(book: list[dict[str, str]]):
+def show_contacts(hender: list, book: list[dict[str, str]]):
     if book:
         print('\n' + '=' * 67)
+        print(f'{hender[0]:>3} {hender[1]:>4} {hender[2]:>24} {hender[3]:>24}')
+        print('=' * 67)
         for contact in book:
             uid = contact.get('id')
             name = contact.get('name')
@@ -32,7 +34,6 @@ def show_contacts(book: list[dict[str, str]]):
 
 
 def input_contact(message: str) -> dict[str, str]:
-    print(message)
     name = input(new_contact[0])
     phone = input(new_contact[1])
     comment = input(new_contact[2])
@@ -41,12 +42,3 @@ def input_contact(message: str) -> dict[str, str]:
 
 def input_return(message: str) -> str:
     return input(message)
-
-def input_selection_contact(message: str, numbers_contackt: int) -> int:
-    while True:
-        id_contact = int(input(message))
-        if 0 < id_contact <= numbers_contackt:
-            return id_contact
-        print(selection_error)
-        
-    
